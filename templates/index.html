@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+
+    <title> 두유노우? | 메인리스트 </title>
+
+
+    <style>
+        .jumbotron {
+            width: 900px;
+            margin: auto;
+        }
+
+
+        .row {
+            width: 900px;
+            margin: auto;
+        }
+
+        .list-group {
+            background-color: darkslateblue;
+            width: 300px;
+
+        }
+
+
+    </style>
+    <script>
+
+        function upload(){
+            window.location.href = "/upload" //업로드페이지로 가기
+        }
+
+        function sign_out() {
+            $.removeCookie('mytoken', {path: '/'});
+            alert('로그아웃!')
+            window.location.href = "/login"
+        }
+
+    </script>
+
+
+</head>
+<body>
+<div class="jumbotron">
+    <h1 class="display-4">두유노우?</h1>
+    <p class="lead">메인페이지입니다.</p>
+    <hr class="my-4">
+    <p></p>
+    <p class="lead">
+        <a onclick="window.location.href = '/my-words'" class="b" href="#">내 단어장</a> <a onclick="sign_out()" href="#"> 로그아웃</a>
+    </p>
+    <a onclick="upload()"  class="btn btn-outline-secondary" href="#" role="button">업로드!</a>
+</div>
+{% for i in range(words|length) %}
+    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+    <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0"
+                               src="{{ words[i]['url'] }}" alt="..."/></div>
+    {% for j in range(words[i]['english'].split(',')|length) %}
+        <div class="col-lg-5"  id="list">
+        <ul class="list-group">
+            <li class="list-group-item">{{ words[i]['english'].split(',')[j] }}</li>
+            <li class="list-group-item">{{ words[i]['korean'].split(',')[j] }}</li>
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+</body>
